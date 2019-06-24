@@ -9,7 +9,10 @@ public class MyLinkedListDemo {
 		User u1 =  new User("Gandalf", "Grey", "mithrandir", "you_shall_not");
 		User u2 = new User("Paul", "Hewson","Bono", "u2Rulez");
 		User u3 = new User("David", "Tennant", "doc10", "tardis");
-
+		User u4 = new User("David", "Tennant", "doc10","tardis");
+		User u5 = new User("Paul", "Hewson","Bono", "u2Rulez");
+		User u6 = new User("Paul", "Hewson","Bono", "u2Rulez");
+		
 		MyLinkedList<User> userList = new MyLinkedList<>();
 		
 		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -21,10 +24,16 @@ public class MyLinkedListDemo {
 		userList.insert(u1);
 		userList.insert(u2);
 		userList.insert(u3);
+		userList.insert(u4);
+		userList.insert(u5);
+		userList.insert(u6);
 		
 		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		System.out.println("List after Insertion");
 		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		userList.printlist();
+		
+		userList.removeDuplicate();
 		userList.printlist();
 		
 		/*System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -38,12 +47,13 @@ public class MyLinkedListDemo {
 		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		System.out.println("Head: "+userList.poll());
 		*/
-		User u4 = new User("David", "Tennant", "doc10","tardis");
-		userList.removeBykey(u4);
+		
+		/*userList.removeBykey(u4);
 		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		System.out.println("Remove by key test");
 		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		userList.printlist();
+		userList.printlist();*/
+		
 	
 	}
 
