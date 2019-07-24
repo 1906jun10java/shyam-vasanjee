@@ -37,24 +37,29 @@ public class EmployeeDAO {
 		ResultSet rs = stmt.executeQuery("SELECT * FROM EMPLOYEES");
 		Employee e = null;
 		while (rs.next()) {
-			e = new Employee();
+			int Employeeid = rs.getInt("ID");
+			String firstname = rs.getString("FIRST_NAME");
+			String lastname = rs.getString("LAST_NAME");
+			String Username = rs.getString("USERNAME");
+			String Password = rs.getString("PASSWORD");
+			int reportsTo = rs.getInt("REPORTSTO");
+			String title = rs.getString("TITLE");
+			int RRID = rs.getInt("REIMBURSEMENTREQUESTID");
+			e = new Employee(Employeeid, firstname, lastname, Username, Password, reportsTo, title, RRID);
 			employeeRoster.add(e);
 		}
 		return employeeRoster;
 	}
-	
 
-	public Employee getEmployeeID(String username, String password) {
-		System.out.println("Checking employee in DB");
-		Employee e = null;
-		try(Connection conn = cf.getConnection()){
-			String sql ="SELECT ID,FIRST_NAME, LAST_NAME, PASSWORD, REPORTSTO, TITLE, REIMBURSEMENTREQUESTID" 
-							+ " FROM EMPLOYEES WHERE USERNAME = ? AND PASSWORD = ?";
+	public Employee getEmployeeUser(String username) {
+		Employee e = new Employee();
+		try (Connection conn = cf.getConnection()) {
+			String sql = "SELECT * FROM EMPLOYEES WHERE USERNAME = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1,username);
-			ps.setString(2, password);
+			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
+			System.out.println("Result set: " + rs);
+			while (rs.next()) {
 				int Employeeid = rs.getInt("ID");
 				String firstname = rs.getString("FIRST_NAME");
 				String lastname = rs.getString("LAST_NAME");
@@ -63,12 +68,58 @@ public class EmployeeDAO {
 				int reportsTo = rs.getInt("REPORTSTO");
 				String title = rs.getString("TITLE");
 				int RRID = rs.getInt("REIMBURSEMENTREQUESTID");
-				e = new Employee(Employeeid,firstname,lastname,Username,Password,reportsTo,title, RRID);
+				e = new Employee(Employeeid, firstname, lastname, Username, Password, reportsTo, title, RRID);
 			}
-		}catch(SQLException e1) {
+		} catch (SQLException e1) {
 			e1.printStackTrace();
-		}return e;
+		}
+		return e;
 	}
-	
 
+	public List<Employee> getUnderlings(int id) throws SQLException {
+		List<Employee> henchmen = new ArrayList<Employee>();
+		Employee e = null;
+		Connection conn = cf.getConnection();
+		String sql = "SELECT * FROM EMPLOYEES WHERE REPORTSTO = ?";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, id);
+		ResultSet rs = ps.executeQuery();
+		
+		while (rs.next()) {
+			int Employeeid = rs.getInt("ID");
+			String firstname = rs.getString("FIRST_NAME");
+			String lastname = rs.getString("LAST_NAME");
+			String Username = rs.getString("USERNAME");
+			String Password = rs.getString("PASSWORD");
+			int reportsTo = rs.getInt("REPORTSTO");
+			String title = rs.getString("TITLE");
+			int RRID = rs.getInt("REIMBURSEMENTREQUESTID");
+			e = new Employee(Employeeid, firstname, lastname, Username, Password, reportsTo, title, RRID);
+			henchmen.add(e);
+		}
+		return henchmen;
+
+	}
+
+	public Employee getEmployeeByID(int id) throws SQLException{
+		Employee e = new Employee();
+		Connection conn = cf.getConnection();
+		String sql = "SELECT * FROM EMPLOYEES WHERE ID = ?";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, id);
+		ResultSet rs = ps.executeQuery();
+		System.out.println("Result set: " + rs);
+		while (rs.next()) {
+			int Employeeid = rs.getInt("ID");
+			String firstname = rs.getString("FIRST_NAME");
+			String lastname = rs.getString("LAST_NAME");
+			String Username = rs.getString("USERNAME");
+			String Password = rs.getString("PASSWORD");
+			int reportsTo = rs.getInt("REPORTSTO");
+			String title = rs.getString("TITLE");
+			int RRID = rs.getInt("REIMBURSEMENTREQUESTID");
+			e = new Employee(Employeeid, firstname, lastname, Username, Password, reportsTo, title, RRID);
+		}
+return e;
+	}
 }

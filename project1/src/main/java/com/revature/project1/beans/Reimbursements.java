@@ -6,16 +6,26 @@ public class Reimbursements {
 	private double reimbursementAmount;
 	private String reimbursementStatus;
 	private int id;
+	private String FirstName;
+	private String LastName;
 	public Reimbursements() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Reimbursements(int reimbursementRequestID, double reimbursementAmount, String reimbursementStatus, int id) {
+	public Reimbursements(int reimbursementRequestID, double reimbursementAmount, String reimbursementStatus, int id, String FirstName, String LastName) {
 		super();
 		this.reimbursementRequestID = reimbursementRequestID;
 		this.reimbursementAmount = reimbursementAmount;
 		this.reimbursementStatus = reimbursementStatus;
 		this.id = id;
+		this.FirstName=FirstName;
+		this.LastName = LastName;
+	}
+	public String getFirstName() {
+		return FirstName;
+	}
+	public String getLastName() {
+		return LastName;
 	}
 	public int getReimbursementRequestID() {
 		return reimbursementRequestID;
@@ -44,8 +54,10 @@ public class Reimbursements {
 	@Override
 	public String toString() {
 		return "Reimbursements [reimbursementRequestID=" + reimbursementRequestID + ", reimbursementAmount="
-				+ reimbursementAmount + ", reimbursementStatus=" + reimbursementStatus + ", id=" + id + "]";
+				+ reimbursementAmount + ", reimbursementStatus=" + reimbursementStatus + ", id=" + id + ", FirstName="
+				+ FirstName + ", LastName=" + LastName + "]";
 	}
+	
 	
 	
 
