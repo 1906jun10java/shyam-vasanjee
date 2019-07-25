@@ -1,6 +1,7 @@
 package com.revature.project1.servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.project1.beans.Employee;
+import com.revature.project1.services.Verification;
 
 /**
  * Servlet implementation class SessionServlet
@@ -29,12 +31,16 @@ public class SessionServlet extends HttpServlet {
         super();
        
     }
+	
 
+	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		if(session != null && session.getAttribute("id") != null) {
-			try {
+		System.out.println("Hitting");
+		if(session != null && session.getAttribute("id")!=null) {
+			
+				System.out.println("inside try catch block");
 				int id = Integer.parseInt(session.getAttribute("id").toString());
 				String firstname = session.getAttribute("firstname").toString();
 				String lastname = session.getAttribute("lastname").toString();
@@ -43,15 +49,12 @@ public class SessionServlet extends HttpServlet {
 				int reportsTo = Integer.parseInt(session.getAttribute("reportsTo").toString());
 				String title = session.getAttribute("title").toString();
 				int reimbursementRequestID = Integer.parseInt(session.getAttribute("reimbursementrequestId").toString());
-				Employee emp = new Employee(id,username, firstname, lastname, password, reportsTo, title, reimbursementRequestID);
+				Employee emp = new Employee(1,username, firstname, lastname, password, reportsTo, title, reimbursementRequestID);
 				response.getWriter().write((new ObjectMapper()).writeValueAsString(emp));
-			}catch(Exception e) {
-				e.printStackTrace();
-				response.getWriter().write("{\"session\":null}");
-				
-			}
+				System.out.println("Are you null?"+emp);
+			
 		}else {
-			response.getWriter().write("{\"session\":null}");
+			response.sendRedirect("LoginPage");
 		}
 		
 	}
@@ -60,6 +63,7 @@ public class SessionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		System.out.println("in the doPost method");
 	}
 
 }

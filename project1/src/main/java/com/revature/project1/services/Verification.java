@@ -11,4 +11,13 @@ public class Verification {
 		}
 
 	}
+	public int nullIntCheck(String input) {
+		int id = 0;
+		if(input != null) {
+			id = Integer.parseInt(input);
+			return id;
+		}
+		return id;
+		
+	}
 }

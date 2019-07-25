@@ -122,4 +122,21 @@ public class EmployeeDAO {
 		}
 return e;
 	}
+	public void updateEmployee(Employee e) throws SQLException{
+		Connection conn = cf.getConnection();
+		String sql = "UPDATE EMPLOYEES SET ID=?,FIRST_NAME=?,LAST_NAME=?"
+				+" USERNAME=? + PASSWORD=? + REPORTSTO=? TITLE=?"
+				+" REIMBURSEMENTREQUESTID=?";
+		PreparedStatement call = conn.prepareStatement(sql);
+		call.setInt(1, e.getId());
+		call.setString(2, e.getFirstName());
+		call.setString(3, e.getLastName());
+		call.setString(4, e.getPassword());
+		call.setInt(5, e.getReportsTo());
+		call.setString(6, e.getTitle());
+		call.setInt(7, e.getReimbursementRequestID());
+		ResultSet rs = call.executeQuery();
+		
+		
+	}
 }

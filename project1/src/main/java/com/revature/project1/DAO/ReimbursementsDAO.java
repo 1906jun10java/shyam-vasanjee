@@ -75,7 +75,7 @@ public class ReimbursementsDAO {
 	public Reimbursements getReimbById(int id) throws SQLException {
 		Reimbursements r =  null;
 		Connection conn = cf.getConnection();
-		String sql = "SELECT * FROM REIMBURSEMENTS WHERE REIMBURSEMENTSREQUESTID = ?";
+		String sql = "SELECT * FROM REIMBURSEMENTS WHERE ID = ?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1,  id);
 		ResultSet rs = ps.executeQuery();

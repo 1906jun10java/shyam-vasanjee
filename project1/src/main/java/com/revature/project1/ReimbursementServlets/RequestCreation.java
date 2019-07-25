@@ -42,7 +42,7 @@ public class RequestCreation extends HttpServlet {
 			String LastName = request.getParameter("LastName");
 			Reimbursements r = rs.addRequest(Rid, amount, "pending", Eid, FirstName, LastName);
 			// session.setAttribute("problem", "invalid values");
-			// response.sendRedirect("EmployeeHome.html");
+			response.sendRedirect("EmployeeHome");
 			System.out.println("Request: " + r);
 		} catch (Exception e) {
 			e.printStackTrace();

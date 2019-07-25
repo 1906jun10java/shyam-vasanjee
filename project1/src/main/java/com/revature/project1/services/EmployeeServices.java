@@ -1,7 +1,10 @@
 package com.revature.project1.services;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.revature.project1.DAO.EmployeeDAO;
 import com.revature.project1.DAO.SQLUtilityEmployees;
 import com.revature.project1.beans.Employee;
 import com.revature.project1.beans.Reimbursements;
@@ -45,6 +48,17 @@ public class EmployeeServices {
 			System.out.println("Denied Reimbursement: " + r);
 		}
 		return denList;
+	}
+	public List<Employee> getAllEmps(){
+		EmployeeDAO ed = new EmployeeDAO();
+		List<Employee> emps = new ArrayList<>();
+		try {
+			emps = ed.populateEmployeeList();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return emps;
 	}
 	
 // views all qpproved requests
