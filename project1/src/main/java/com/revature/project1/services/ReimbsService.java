@@ -13,8 +13,8 @@ public class ReimbsService {
 	private ReimbursementsDAO rd = new ReimbursementsDAO();
 	
 	// add request
-	public Reimbursements addRequest(int RRID, double amount, String status, int EmpID, String FN, String LN) {
-	Reimbursements r = SQLDataReimb.makeRequest(RRID, amount, status, EmpID, FN, LN);
+	public Reimbursements addRequest(Reimbursements r) {
+		SQLDataReimb.makeRequest(r);
 	return r;
 	}
 	// reimbursement id generator

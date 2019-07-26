@@ -1,9 +1,7 @@
-let user = {};
-let reimbs = [];
-let reimb = {};
+let user ={};
 window.onload = function() {
     makeRequest();
-    document.getElementById("reimbPost").addEventListener("click", postRequest(500));
+    
 }
 
 function makeRequest() {
@@ -16,71 +14,13 @@ function makeRequest() {
         if (data.session === null) {
             window.location = "http://localhost:8082/project1/LoginServlet"
         } else {
-            //define behavior for when a user is returned
-            user = data;
-            //document.getElementById("EmployeeId").innerText = "Enter Employee ID " + user.id;
+            user = data
+            console.log(data);
             document.getElementById("reimbAmount").innerText = "Enter Amount: " + user.reimbursementAmount;
-            // document.getElementById("FirstName").innerText = "First Name " + user.firstName;
-            // document.getElementById("LastName").innerText = "Last Name " + user.lastName;
+            docoument.getElementbyId("redirecrt").addEventlistener("click","EmployeeHomePage");
 
         }
     })
 }
 
 
-function postRequest(data1) {
-
-    return fetch("http://localhost:8085/project1/RequestCreation", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-
-            body: JSON.stringify(data1), // body data type must match "Content-Type" header
-        })
-        .then();
-}
-
-function approveRequest() {
-    fetch("http://localhost:8082/project1/AllRequests").then(function(response) {
-        return response.json();
-    }).then(function(data) {
-        if (data.session === null) {
-            window.location = "http://localhost:8082/project1/EmployeeHome"
-        } else {
-
-            for (let i = 0; i < data.length; i++) {
-                for (var key in data[i]) {
-                    if (reimbs.indexOf(key) === -1) {
-                        reimbs.push(key);
-                    }
-                }
-            }
-            table = document.getElementById("Henchmen");
-
-
-        }
-
-
-    })
-}
-
-function populateTable() {
-    // declare array
-    reimbs;
-    for (var i = 0; i < Array.length; i++) {
-        for (var key in Array[i]) {
-            if (reimbs.indexOf(key) === -1)
-                reimbs.push(key);
-        }
-    }
-    table = document.getElementById("Henchmen");
-    // add Json data to the table as rows
-    for (var i = 0; i < Array.length; i++) {
-        tr = table.insertRow(-1);
-        for (var j = 0; j < reimbs.length; j++) {
-            var tableCell = tr.insertCell;
-            tableCell.innerHTML = Array[i][reimbs[j]];
-        }
-    }
-}

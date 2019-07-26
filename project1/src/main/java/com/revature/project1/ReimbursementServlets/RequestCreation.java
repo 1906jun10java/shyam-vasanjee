@@ -49,24 +49,17 @@ public class RequestCreation extends HttpServlet {
 		System.out.println("In the post and RequestCreation");
 		if (session != null) {
 			HttpSession session = request.getSession(false);
+
 			int Rid = rs.IDgenerator();
 			String amt = request.getParameter("reimbursementAmount");
-			double amount;
-			try {
-				amount = Verification.convertToDouble(amt);
-			} catch (Exception e) {
-				return;
-			}
+			double amount = Double.parseDouble(amt);
+		
 			int Eid = (int) session.getAttribute("id");
 			String FirstName = session.getAttribute("firstName").toString();
 			String LastName = session.getAttribute("lastName").toString();
 			Reimbursements r = new Reimbursements(Rid, amount, "pending", Eid, FirstName, LastName);
-			try {
-				rd.createReimbursements(r);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			System.out.println(r);
+			rs.addRequest(r);
 			response.sendRedirect("EmployeeHome");
 		}
 			

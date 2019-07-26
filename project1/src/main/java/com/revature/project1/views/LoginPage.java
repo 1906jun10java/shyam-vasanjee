@@ -15,7 +15,7 @@ public class LoginPage extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("RequestForm.html").forward(request, response);
+		request.getRequestDispatcher("Login.html").forward(request, response);
 	}
 
 	

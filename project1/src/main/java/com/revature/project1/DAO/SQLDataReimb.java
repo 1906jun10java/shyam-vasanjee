@@ -10,8 +10,7 @@ public class SQLDataReimb {
 	private static ReimbursementsDAO rd = new ReimbursementsDAO();
 	
 	
-	public static Reimbursements makeRequest(int RRID, double amount, String status, int EmpID, String FN, String LN) {
-		Reimbursements r = new Reimbursements(RRID, amount, status, EmpID, FN, LN);
+	public static Reimbursements makeRequest(Reimbursements r) {
 		try {
 			rd.createReimbursements(r);
 		} catch (SQLException e) {

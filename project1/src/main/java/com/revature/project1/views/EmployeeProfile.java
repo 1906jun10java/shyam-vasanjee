@@ -19,7 +19,7 @@ public class EmployeeProfile extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
 		request.getRequestDispatcher("EmployeeProfile.html").forward(request, response);
 		
 		
