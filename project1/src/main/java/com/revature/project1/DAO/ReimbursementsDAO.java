@@ -72,15 +72,31 @@ public class ReimbursementsDAO {
 		return r;
 		
 	}// getbyID and delete
-	public Reimbursements getReimbById(int id) throws SQLException {
-		Reimbursements r =  null;
+	public List<Reimbursements> getReimbById(int id, String status) throws SQLException {
+		List<Reimbursements> list = new ArrayList<>();
 		Connection conn = cf.getConnection();
-		String sql = "SELECT * FROM REIMBURSEMENTS WHERE ID = ?";
+		String sql = "SELECT * FROM REIMBURSEMENTS WHERE ID = ? AND REIMBURSEMENTS_STATUS=?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1,  id);
+		ps.setString(2, status);
+		ResultSet rs = ps.executeQuery();
+		Reimbursements r =  null;
+		while(rs.next()) {
+			r = new Reimbursements();
+			list.add(r);
+		}
+		return list;
+	}
+	public Reimbursements getReimbyEmployeeID(int id) throws SQLException {
+		Reimbursements r =  null;
+		Connection conn =  cf.getConnection();
+		String sql = "SELECT * FROM WHERE ID=?";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, id);
 		ResultSet rs = ps.executeQuery();
 		ResultsetRow(rs, r);
 		return r;
+		
 	}
 	
 	public void ResultsetRow(ResultSet rs, Reimbursements r) throws SQLException {

@@ -53,15 +53,15 @@ public class SQLDataReimb {
 		}
 		return r;
 	}
-	public static Reimbursements getReimID(int id) {
-		Reimbursements r = new Reimbursements();
+	public static List<Reimbursements> getReimID(int id, String status) {
+		List<Reimbursements> temp = new ArrayList<>();
 		try {
-			r = rd.getReimbById(id);
+			temp = rd.getReimbById(id, status);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return r;
+		return temp;
 	}
 
 }

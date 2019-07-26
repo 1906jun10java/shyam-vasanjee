@@ -1,12 +1,16 @@
 package com.revature.project1.services;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.revature.project1.DAO.ReimbursementsDAO;
 import com.revature.project1.DAO.SQLDataReimb;
 import com.revature.project1.beans.Reimbursements;
 
 public class ReimbsService {
+	
+	private ReimbursementsDAO rd = new ReimbursementsDAO();
 	
 	// add request
 	public Reimbursements addRequest(int RRID, double amount, String status, int EmpID, String FN, String LN) {
@@ -57,10 +61,21 @@ public class ReimbsService {
 		return r;
 		
 	}
-	public  Reimbursements getReimbsID(int id) {
-		Reimbursements r = new Reimbursements();
-		r = SQLDataReimb.getReimID(id);
-		return r;
+	public List<Reimbursements> getReimByStatnID(int id, String status){
+		List<Reimbursements> empStatusList = SQLDataReimb.getReimID(id, status);
+		return empStatusList;
+	}
+	public Reimbursements getReimByEID(int id) {
+		
+		try {
+			Reimbursements r = rd.getReimbyEmployeeID(id);
+			return r;
+		} catch (SQLException e) {
+			
+			
+		}
+		return null;
+		
 	}
 	
 

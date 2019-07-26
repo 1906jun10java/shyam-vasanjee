@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Profile</title>
+    <script src="EmployeeHomePage.js"></script>
+    <link rel="stylesheet" href="myCoolStyles.css">
+</head>
+
+<body>
+    <div class="welcome">
+        <h1>WELCOME</h1>
+
+    </div>
+    <button onclick="getEmployeeInfo()" id="empGen">My Information</button>
+    <br><br>
+    <br><br>
+    <div id="display">
+
+        <br>
+        <p id="EmployeeId"></p>
+        <br>
+        <p id="username"></p>
+        <br>
+        <p id="FirstName"></p>
+        <br>
+        <p id="LastName"></p>
+        <br>
+        <p id="title"></p>
+        <br>
+        <p id="RRID"></p>
+    </div>
+    <div id="newTab"></div>
+    <form action="LoginServlet" method="GET">
+        <a href="LoginPage" value="LoginPage">Logout</a>
+    </form>
+</body>
+
+
+</html>

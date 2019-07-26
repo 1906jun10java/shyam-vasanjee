@@ -1,6 +1,7 @@
 package com.revature.project1.ReimbursementServlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,8 +38,8 @@ public class ListofSEmployeeReimbs extends HttpServlet {
 		HttpSession session = request.getSession();
 	
 		int id = Verification.intCheck(session.getAttribute("id").toString());
-		Reimbursements r = rs.getReimbsID(id);
-		String henchmanJSON = om.writeValueAsString(r.toString());
+		List<Reimbursements> list = rs.getReimByStatnID(id, "pending");
+		response.getWriter().write(om.writeValueAsString(list));
 	}
 		
 	

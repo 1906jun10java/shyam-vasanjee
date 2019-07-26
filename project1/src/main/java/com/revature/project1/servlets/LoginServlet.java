@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 		if (username != e.getUsername()) {
 			if (password != e.getPassword()) {
 				generateSession(e, session);
-				response.sendRedirect("EmployeeHome");
+				response.sendRedirect("EmployeeHomepage");
 			}
 		} else {
 			response.sendRedirect("LoginPage");

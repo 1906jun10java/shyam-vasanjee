@@ -31,20 +31,20 @@ public class EmployeeServices {
 	// Manager approves requests
 	public List<Reimbursements> approve(int id) {
 		List<Reimbursements> appList = rs.approvedRequests();
-		Reimbursements r = rs.getReimbsID(id);
-		if (r.getReimbursementStatus().equals("pending")) {
-			r.setReimbursementStatus("approved");
-			appList.add(r);
-			System.out.println("Approved Reimbursement: " + r);
+		Reimbursements requests = rs.getReimByEID(id);
+		if (requests.getReimbursementStatus().equals("pending")) {
+			requests.setReimbursementStatus("approved");
+			appList.add(requests);
+			System.out.println("Approved Reimbursement: " + requests);
 		}
 		return appList;
 	}
 //Manager denies reimbursement
 	public List<Reimbursements> decline(int id) {
 		List<Reimbursements> denList = rs.deniedRequests();
-		Reimbursements r = rs.getReimbsID(id);
+		Reimbursements r = rs.getReimByEID(id);
 		if (r.getReimbursementStatus().equals("pending")) {
-			r.setReimbursementStatus("Denied");
+			r.setReimbursementStatus("denied");
 			denList.add(r);
 			System.out.println("Denied Reimbursement: " + r);
 		}
@@ -62,10 +62,12 @@ public class EmployeeServices {
 		}
 		return emps;
 	}
+	//view all denied requests
+	
 	
 // views all qpproved requests
 	public List<Reimbursements> viewResolvedRequests(int id) {
-		List<Reimbursements> resolved = approve(id);
+		List<Reimbursements> resolved = rs.getReimByStatnID(id, "approved");
 		int i = 0;
 		for (Reimbursements r : resolved) {
 			System.out.println(i + ") Resolved Reimbursements: " + r);
@@ -85,7 +87,7 @@ public class EmployeeServices {
 		List<Employee> henchmen = myHenchmen(e.getId());// print all peeps that report to current manager
 		for(Employee h: henchmen) {
 			//traverses through each henchmen
-			Reimbursements r  = rs.getReimbsID(h.getId());//gets their reimbursements
+			Reimbursements r  = rs.getReimByEID(h.getId());//gets their reimbursements
 			resolved.add(r);// adds all their reimbursemments
 			resolved = rs.getReimbsbyStatus("approved");//shows only reimbursements that are approved
 		}
@@ -94,7 +96,7 @@ public class EmployeeServices {
 	// view one employees request(might be changed)
 	public Reimbursements viewMyEmployeeReqs(int id) {
 		Employee e = getEmployeebyId(id);
-		Reimbursements r = rs.getReimbsID(e.getId());
+		Reimbursements r = rs.getReimByEID(e.getId());
 		return r;
 	}
 }
