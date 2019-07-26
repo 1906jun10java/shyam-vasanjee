@@ -30,18 +30,21 @@ public class ApprovedRequest extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("ApprovedRequest.html");
-		// start session
+		
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
 		HttpSession session = request.getSession();
-		int EmployeeId = Integer.valueOf(request.getParameter("Employee ID"));
+		int EmployeeId = Integer.parseInt(request.getParameter("id"));
 		List<Reimbursements> approvedRequests = es.approve(EmployeeId);
 		if (session != null) {
 			if (!approvedRequests.isEmpty()) {
 				approvedRequests = (List<Reimbursements>) session.getAttribute("Reimbursements");
 				session.setAttribute("Reimbursements", approvedRequests);
-				session.setAttribute("problem", null);
 				response.sendRedirect("ManagerHomePage.html");
 			} else {
-				session.setAttribute("problem", "empty list");
+				
 				response.sendRedirect("ManagerHomePage.html");
 
 			}
@@ -49,13 +52,10 @@ public class ApprovedRequest extends HttpServlet {
 			response.sendRedirect("ManagerHomePage.html");
 		}
 
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 	}
 
-}
+

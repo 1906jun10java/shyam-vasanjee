@@ -22,6 +22,15 @@ public class SQLUtilityEmployees {
 		}
 
 	}
+	public static void updateEmployeeInformation(Employee e) {
+		ed = new EmployeeDAO();
+		try {
+			ed.updateEmployee(e);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 
 	public static List<Employee> getEmployees() {
 		ed = new EmployeeDAO();

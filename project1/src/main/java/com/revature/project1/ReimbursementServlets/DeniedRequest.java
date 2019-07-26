@@ -25,21 +25,26 @@ public class DeniedRequest extends HttpServlet {
     }
 
 	
-	@SuppressWarnings("unchecked")
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("DeniedRequest.html");
 		// start session
+				
+	}
+
+	@SuppressWarnings("unchecked")
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession session = request.getSession();
-		int EmployeeId = Integer.valueOf(request.getParameter("Employee ID"));
+		int EmployeeId = Integer.parseInt(request.getParameter("id"));
 		List<Reimbursements> deniedRequests = es.decline(EmployeeId);
 		if (session != null) {
 			if (!deniedRequests.isEmpty()) {
 				deniedRequests = (List<Reimbursements>) session.getAttribute("Reimbursements");
 				session.setAttribute("Reimbursements", deniedRequests);
-				session.setAttribute("problem", null);
 				response.sendRedirect("ManagerHomePage.html");
 			} else {
-				session.setAttribute("problem", "empty list");
+				
 				response.sendRedirect("ManagerHomePage.html");
 
 			}
@@ -48,13 +53,7 @@ public class DeniedRequest extends HttpServlet {
 		}
 
 
-		
-	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		doGet(request, response);
 	}
 
 }

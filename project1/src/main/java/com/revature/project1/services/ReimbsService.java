@@ -31,6 +31,12 @@ public class ReimbsService {
 		return list;
 		
 	}
+	public  List<Reimbursements> pendingRequests(){
+		List<Reimbursements> pendingList = new ArrayList<>();
+	pendingList = SQLDataReimb.getReimbStatus("pending");
+		return pendingList;
+	}
+	
 	//List of approved and denied requests
 	public  List<Reimbursements> approvedRequests(){
 		List<Reimbursements> appList = new ArrayList<>();

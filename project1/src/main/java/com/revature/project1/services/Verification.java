@@ -2,22 +2,21 @@ package com.revature.project1.services;
 
 public class Verification {
 	public static Double convertToDouble(String input) throws Exception {
-		double amount;
+		
 		try {
-			amount = Double.valueOf(input);
+			double amount = Double.parseDouble(input);
 			return amount;
-		} catch (NumberFormatException e) {
-			throw new Exception();
+		} catch (Exception e) {
+			return 0.0;
 		}
 
 	}
-	public int nullIntCheck(String input) {
-		int id = 0;
-		if(input != null) {
-			id = Integer.parseInt(input);
+	public static Integer intCheck(String input) {
+		try {
+			int id = Integer.parseInt(input);
 			return id;
+		}catch(Exception e) {
+			return 0;
 		}
-		return id;
-		
 	}
 }

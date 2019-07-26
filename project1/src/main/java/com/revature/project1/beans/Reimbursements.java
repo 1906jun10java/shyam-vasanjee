@@ -57,6 +57,10 @@ public class Reimbursements {
 				+ reimbursementAmount + ", reimbursementStatus=" + reimbursementStatus + ", id=" + id + ", FirstName="
 				+ FirstName + ", LastName=" + LastName + "]";
 	}
+	public String getStatus(String status) {
+		// TODO Auto-generated method stub
+		return status;
+	}
 	
 	
 	

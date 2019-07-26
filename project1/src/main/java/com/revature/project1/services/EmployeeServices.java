@@ -15,6 +15,7 @@ public class EmployeeServices {
 	// Employee views their own information
 	public Employee myInfo(String username) {
 		Employee e = SQLUtilityEmployees.getEmployeeByUsername(username);
+		System.out.println(e);
 		return e;
 	}
 
@@ -49,6 +50,7 @@ public class EmployeeServices {
 		}
 		return denList;
 	}
+	// View all Employees
 	public List<Employee> getAllEmps(){
 		EmployeeDAO ed = new EmployeeDAO();
 		List<Employee> emps = new ArrayList<>();
@@ -62,8 +64,8 @@ public class EmployeeServices {
 	}
 	
 // views all qpproved requests
-	public List<Reimbursements> viewResolvedRequests() {
-		List<Reimbursements> resolved = rs.approvedRequests();
+	public List<Reimbursements> viewResolvedRequests(int id) {
+		List<Reimbursements> resolved = approve(id);
 		int i = 0;
 		for (Reimbursements r : resolved) {
 			System.out.println(i + ") Resolved Reimbursements: " + r);
