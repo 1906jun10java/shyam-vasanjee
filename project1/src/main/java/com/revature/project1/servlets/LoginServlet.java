@@ -1,6 +1,7 @@
 package com.revature.project1.servlets;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.revature.project1.beans.Employee;
-import com.revature.project1.services.AuthenticationService;
 import com.revature.project1.services.EmployeeServices;
 
 public class LoginServlet extends HttpServlet {
@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		Employee e = es.myInfo(username);
-
+		
 		System.out.println("Employee" + e);
 		if (username != e.getUsername()) {
 			if (password != e.getPassword()) {
@@ -53,4 +53,7 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(e.getFirstName());
 		System.out.println(e.getLastName());
 	}
+
+	
+
 }

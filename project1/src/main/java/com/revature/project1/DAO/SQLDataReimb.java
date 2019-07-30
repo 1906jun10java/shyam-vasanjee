@@ -10,6 +10,7 @@ public class SQLDataReimb {
 	private static ReimbursementsDAO rd = new ReimbursementsDAO();
 	
 	
+	
 	public static Reimbursements makeRequest(Reimbursements r) {
 		try {
 			rd.createReimbursements(r);
@@ -53,7 +54,7 @@ public class SQLDataReimb {
 		return r;
 	}
 	public static List<Reimbursements> getReimID(int id, String status) {
-		List<Reimbursements> temp = new ArrayList<>();
+		List<Reimbursements> temp = null;
 		try {
 			temp = rd.getReimbById(id, status);
 		} catch (SQLException e) {

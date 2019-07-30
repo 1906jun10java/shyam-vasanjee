@@ -1,5 +1,5 @@
 user = {};
-window.onload() = function() {
+window.onload = function() {
     UpdateEmployeeInfo();
 }
 
@@ -15,8 +15,7 @@ function UpdateEmployeeInfo() {
             user = data;
             console.log(data);
 
-            document.getElementById("id").innerText = user.id;
-            document.getElementById("LastName").innerText = user.lastName;
+            
             document.getElementById("username").innerText = user.username;
             document.getElementById("password").innerText = user.password;
             document.getElementById("title").innerText = user.title;

@@ -17,21 +17,18 @@ public class ReimbursementsDAO {
 	public void createReimbursements(Reimbursements r) throws SQLException{
 		Connection conn =  cf.getConnection();
 		String sql = "INSERT INTO REIMBURSEMENTS (REIMBURSEMENTSREQUESTID,REIMBURSEMENT_AMT,REIMBURSEMENT_STATUS,ID,FIRSTNAME,LASTNAME) "
-		+ " VALUES(?,?,'pending',?,?,?)";
-		try {
+		+ " VALUES(?,?,?,?,?,?)";
+		
 			PreparedStatement call = conn.prepareCall(sql);
 			call.setInt(1, r.getReimbursementRequestID());
 			call.setDouble(2, r.getReimbursementAmount());
-			//call.setString(3,  r.getReimbursementStatus());
-			call.setInt(3, r.getId());
-			call.setString(4, r.getFirstName());
-			call.setString(5, r.getLastName());
+			call.setString(3,  r.getReimbursementStatus());
+			call.setInt(4, r.getId());
+			call.setString(5, r.getFirstName());
+			call.setString(6, r.getLastName());
 			call.execute();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+		} 
+	
 	
 	public List<Reimbursements> viewAllReimb() throws SQLException{
 		List<Reimbursements> reimbursements = new ArrayList<Reimbursements>();
@@ -40,7 +37,14 @@ public class ReimbursementsDAO {
 		ResultSet rs = stmt.executeQuery("SELECT * FROM REIMBURSEMENTS");
 		Reimbursements r =  null;
 		while(rs.next()) {
-			r = new Reimbursements();
+			int RRID = rs.getInt("REIMBURSEMENTSREQUESTID");
+			double amount = rs.getDouble("REIMBURSEMENT_AMT");
+			 String status = rs.getString("REIMBURSEMENT_STATUS");
+			int Eid = rs.getInt("ID");
+			String FirstName = rs.getString("FIRSTNAME");
+			String LastName = rs.getString("LASTNAME");
+			r = new Reimbursements(RRID, amount, status, Eid, FirstName, LastName);
+			
 			reimbursements.add(r);
 		}
 		return reimbursements;
@@ -55,7 +59,13 @@ public class ReimbursementsDAO {
 		ResultSet rs = ps.executeQuery();
 		Reimbursements r =  null;
 		while(rs.next()) {
-			r = new Reimbursements();
+			int RRID = rs.getInt("REIMBURSEMENTSREQUESTID");
+			double amount = rs.getDouble("REIMBURSEMENT_AMT");
+			 status = rs.getString("REIMBURSEMENT_STATUS");
+			int Eid = rs.getInt("ID");
+			String FirstName = rs.getString("FIRSTNAME");
+			String LastName = rs.getString("LASTNAME");
+			r = new Reimbursements(RRID, amount, status, Eid, FirstName, LastName);
 			Rstatus.add(r);
 		}
 		return Rstatus;
@@ -75,15 +85,21 @@ public class ReimbursementsDAO {
 	public List<Reimbursements> getReimbById(int id, String status) throws SQLException {
 		List<Reimbursements> list = new ArrayList<>();
 		Connection conn = cf.getConnection();
-		String sql = "SELECT * FROM REIMBURSEMENTS WHERE ID = ? AND REIMBURSEMENTS_STATUS=?";
+		String sql = "SELECT * FROM REIMBURSEMENTS WHERE ID = ? AND REIMBURSEMENT_STATUS=?";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setInt(1,  id);
 		ps.setString(2, status);
 		ResultSet rs = ps.executeQuery();
-		Reimbursements r =  null;
 		while(rs.next()) {
-			r = new Reimbursements();
+			int RRID = rs.getInt("REIMBURSEMENTSREQUESTID");
+			double amount = rs.getDouble("REIMBURSEMENT_AMT");
+			 status = rs.getString("REIMBURSEMENT_STATUS");
+			int Eid = rs.getInt("ID");
+			String FirstName = rs.getString("FIRSTNAME");
+			String LastName = rs.getString("LASTNAME");
+			Reimbursements r = new Reimbursements(RRID, amount, status, Eid, FirstName, LastName);
 			list.add(r);
+			System.out.println(list);
 		}
 		return list;
 	}

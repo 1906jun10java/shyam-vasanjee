@@ -1,5 +1,6 @@
 package com.revature.project1.DAO;
 
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,15 +19,17 @@ public class EmployeeDAO {
 
 	public void createEmployee(Employee e) throws SQLException {
 		Connection conn = cf.getConnection();
-		String sql = "{ call INSERTEMPLOYEE(?,?,?,?,?,?,?)";
+		String sql = "{ call INSERTEMPLOYEE(?,?,?,?,?,?,?,?)";
 		CallableStatement call = conn.prepareCall(sql);
 		call.setInt(1, e.getId());
 		call.setString(2, e.getFirstName());
 		call.setString(3, e.getLastName());
-		call.setString(4, e.getPassword());
-		call.setInt(5, e.getReportsTo());
-		call.setString(6, e.getTitle());
-		call.setInt(7, e.getReimbursementRequestID());
+		call.setString(4, e.getUsername());
+		call.setString(5, e.getPassword());
+		call.setInt(6, e.getReportsTo());
+		call.setString(7, e.getTitle());
+		call.setInt(8, e.getReimbursementRequestID());
+		call.execute();
 
 	}
 
@@ -51,14 +54,15 @@ public class EmployeeDAO {
 		return employeeRoster;
 	}
 
-	public Employee getEmployeeUser(String username) {
-		Employee e = new Employee();
-		try (Connection conn = cf.getConnection()) {
+	public Employee getEmployeeUser(String username) throws SQLException, IOException {
+		
+		Connection conn = cf.getConnection();
 			String sql = "SELECT * FROM EMPLOYEES WHERE USERNAME = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 			System.out.println("Result set: " + rs);
+			Employee e = null;
 			while (rs.next()) {
 				int Employeeid = rs.getInt("ID");
 				String firstname = rs.getString("FIRST_NAME");
@@ -70,10 +74,9 @@ public class EmployeeDAO {
 				int RRID = rs.getInt("REIMBURSEMENTREQUESTID");
 				e = new Employee(Employeeid, firstname, lastname, Username, Password, reportsTo, title, RRID);
 			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		return e;
+			return e;
+		
+		
 	}
 
 	public List<Employee> getUnderlings(int id) throws SQLException {
@@ -135,7 +138,7 @@ return e;
 		call.setInt(5, e.getReportsTo());
 		call.setString(6, e.getTitle());
 		call.setInt(7, e.getReimbursementRequestID());
-		ResultSet rs = call.executeQuery();
+		call.executeQuery();
 		
 		
 	}

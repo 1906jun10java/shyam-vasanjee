@@ -1,5 +1,6 @@
 package com.revature.project1.DAO;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,13 @@ public class SQLUtilityEmployees {
 	}
 	public static Employee getEmployeeByUsername(String username) {
 		ed = new EmployeeDAO();
-		Employee e = ed.getEmployeeUser(username);
+		Employee e = null;
+		try {
+			e = ed.getEmployeeUser(username);
+		} catch (SQLException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		return e;
 	}
 	public static List<Employee> getHenchmen(int id){

@@ -27,8 +27,8 @@ public class EmployeeHomepage extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		request.getRequestDispatcher("index.html").forward(request, response);
+		HttpSession session = request.getSession();
+		request.getRequestDispatcher("EmployeeHomePage.html").forward(request, response);
 	}
 
 	/**

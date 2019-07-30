@@ -24,7 +24,7 @@ public class RequestCreation extends HttpServlet {
 	private static final long serialVersionUID = -6216785946872039183L;
 	ReimbursementsDAO rd = new ReimbursementsDAO();
 	private ReimbsService rs = new ReimbsService();
-	HttpSession session = null;
+	//HttpSession session = null;
 
 	public RequestCreation() {
 
@@ -32,13 +32,13 @@ public class RequestCreation extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		session = request.getSession(false);
-		// request.getRequestDispatcher("RequestForm.html").forward(request, response);
-		if (session != null) {
-			response.sendRedirect("EmployeeHome");
-		} else {
-			response.sendRedirect("LoginPage");
-		}
+		//session = request.getSession(false);
+		request.getRequestDispatcher("RequestForm.java").forward(request, response);
+//		if (session != null) {
+//			response.sendRedirect("EmployeeHome");
+//		} else {
+//			response.sendRedirect("LoginPage");
+//		}
 
 	}
 
@@ -47,24 +47,22 @@ public class RequestCreation extends HttpServlet {
 		System.out.println("In the post and RequestCreation outside");
 
 		System.out.println("In the post and RequestCreation");
-		if (session != null) {
-			HttpSession session = request.getSession(false);
+					HttpSession session = request.getSession();
 
 			int Rid = rs.IDgenerator();
-			String amt = request.getParameter("reimbursementAmount");
-			double amount = Double.parseDouble(amt);
+			
+			double amount = Double.parseDouble(request.getParameter("reimbursementAmount"));
 		
-			int Eid = (int) session.getAttribute("id");
-			String FirstName = session.getAttribute("firstName").toString();
-			String LastName = session.getAttribute("lastName").toString();
+			int Eid = Integer.parseInt(session.getAttribute("id").toString());
+			
+			String FirstName = session.getAttribute("firstname").toString();
+			String LastName = session.getAttribute("lastname").toString();
 			Reimbursements r = new Reimbursements(Rid, amount, "pending", Eid, FirstName, LastName);
 			System.out.println(r);
 			rs.addRequest(r);
-			response.sendRedirect("EmployeeHome");
+			response.sendRedirect("EmployeeHomePage");
 		}
 			
-		}
+		
 
 	}
-
-

@@ -34,14 +34,14 @@ public class UpdateMyInfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String newId = request.getParameter("id").toString();
-		String lastname = request.getParameter("lastName").toString();
+		
+		String lastname = session.getAttribute("lastname").toString();
 		String title = request.getParameter("title").toString();
 		String username = request.getParameter("username").toString();
-		String password = request.getAttribute("password").toString();
+		String password = request.getParameter("password").toString();
 		String firstname = session.getAttribute("firstname").toString();
 		String reportsToraw = session.getAttribute("reportsTo").toString();
-		int id = Integer.parseInt(newId);
+		int id = Integer.parseInt(session.getAttribute("id").toString());
 		int reportsTo = Integer.parseInt(reportsToraw);
 		int reimbursementRequestID = Integer.parseInt(session.getAttribute("reimbursementrequestId").toString());
 		Employee e = new Employee(id, username, firstname, lastname, password, reportsTo, title,
